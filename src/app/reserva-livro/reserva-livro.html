@@ -1,0 +1,24 @@
+@for(item of livros; track item) {
+  <div class="d-flex justify-content-between align-items-center py-4 border-bottom border-customizada">
+    
+    <span class="m-0 p-0">📚<strong><u>{{ item.nome }}</u></strong></span>
+
+    <div>
+      <button (click)="toggleSeta(item)" class = "btn btn-outline-primary">
+        {{ item.aberto ? 'v' : '<' }}
+      </button>
+      <button class="btn btn-primary" 
+              style="width: 100px; height: 30px; padding: 0; margin-right: 10px; margin-left: 20px;" (click)="reservado(item.status)">
+        Reservar
+      </button>
+    </div>
+  </div>
+
+  @if(item.aberto){
+  <div class="p-3 border-start border-end border-bottom">
+      <p><strong>Autor:</strong> {{ item.autor }}</p>
+      <p><strong>Ano:</strong> {{ item.ano }}</p>
+      <p><strong>Status:</strong> {{ item.status }}</p>
+  </div>
+    }
+}

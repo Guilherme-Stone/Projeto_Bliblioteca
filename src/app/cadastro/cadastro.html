@@ -1,0 +1,74 @@
+<div class="container mt-5">
+    
+    <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()" class="card p-4 shadow">
+        <h2 class="card-title text-center mb-4">Crie sua Conta</h2>
+        
+        <div class="form-group mb-3">
+            <label for="nome">Nome Completo</label>
+            <input 
+                id="nome" 
+                type="text" 
+                formControlName="nome"
+                class="form-control"
+                [class.is-invalid]="f['nome'].invalid && f['nome'].touched"
+            >
+            <div *ngIf="f['nome'].invalid && f['nome'].touched" class="invalid-feedback">
+                <p *ngIf="f['nome'].hasError('required')">O nome é obrigatório.</p>
+            </div>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label for="email">E-mail</label>
+            <input 
+                id="email" 
+                type="email" 
+                formControlName="email"
+                class="form-control"
+                [class.is-invalid]="f['email'].invalid && f['email'].touched"
+            >
+            <div *ngIf="f['email'].invalid && f['email'].touched" class="invalid-feedback">
+                <p *ngIf="f['email'].hasError('required')">O e-mail é obrigatório.</p>
+                <p *ngIf="f['email'].hasError('email')">Formato de e-mail inválido.</p>
+            </div>
+        </div>
+        
+        <div formGroupName="senhas">
+            
+            <div class="form-group mb-3">
+                <label for="senha">Senha</label>
+                <input 
+                    id="senha" 
+                    type="password" 
+                    formControlName="senha"
+                    class="form-control"
+                    [class.is-invalid]="cadastroForm.get('senhas.senha')?.invalid && cadastroForm.get('senhas.senha')?.touched"
+                >
+                <div *ngIf="cadastroForm.get('senhas.senha')?.invalid && cadastroForm.get('senhas.senha')?.touched" class="invalid-feedback">
+                    <p *ngIf="cadastroForm.get('senhas.senha')?.hasError('required')">A senha é obrigatória.</p>
+                    <p *ngIf="cadastroForm.get('senhas.senha')?.hasError('minlength')">A senha deve ter no mínimo 6 caracteres.</p>
+                </div>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label for="confirmaSenha">Confirmar Senha</label>
+                <input 
+                    id="confirmaSenha" 
+                    type="password" 
+                    formControlName="confirmaSenha"
+                    class="form-control"
+                    [class.is-invalid]="(cadastroForm.get('senhas.confirmaSenha')?.invalid && cadastroForm.get('senhas.confirmaSenha')?.touched) || (cadastroForm.get('senhas')?.hasError('passwordsDoNotMatch') && cadastroForm.get('senhas.confirmaSenha')?.touched)"
+                >
+                
+                <div *ngIf="cadastroForm.get('senhas.confirmaSenha')?.invalid && cadastroForm.get('senhas.confirmaSenha')?.touched" class="invalid-feedback">
+                    <p *ngIf="cadastroForm.get('senhas.confirmaSenha')?.hasError('required')">A confirmação de senha é obrigatória.</p>
+                    <p *ngIf="cadastroForm.get('senhas.confirmaSenha')?.hasError('passwordsDoNotMatch')">As senhas não coincidem.</p>
+                </div>
+            </div>
+        </div>
+        
+        <button type="submit" [disabled]="cadastroForm.invalid" class="btn btn-primary w-100 mt-3">
+            Cadastrar
+        </button>
+
+    </form>
+</div>
