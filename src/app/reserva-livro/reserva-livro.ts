@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
+import { Navbar } from "../navbar/navbar";
+import { Dados } from '../dados';
 
 @Component({
   selector: 'app-reserva-livro',
-  imports: [],
+  imports: [Navbar],
   templateUrl: './reserva-livro.html',
   styleUrl: './reserva-livro.css',
 })
@@ -40,7 +42,6 @@ export class ReservaLivro {
 
 ];
 
-  statu: string = "reservado" 
 
   reservado(aux: string){
     if(aux === "reservado"){
@@ -51,4 +52,15 @@ export class ReservaLivro {
       console.log("Discente fez uma reserva")
   }
   }
+
+  constructor(private dados: Dados){}
+
+  shareData(){
+    this.dados.sendData(this.livros)
+    console.log("Livro enviado")
+  }
+  
+    ngOnInit() {
+        this.shareData(); 
+    }
 }

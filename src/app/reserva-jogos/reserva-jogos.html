@@ -1,8 +1,7 @@
-<app-navbar></app-navbar>
-@for(item of livros; track item) {
+@for(item of jogos; track item) {
   <div class="d-flex justify-content-between align-items-center py-4 border-bottom border-customizada">
     
-    <span class="m-0 p-0">📚<strong><u>{{ item.nome }}</u></strong></span>
+    <span class="m-0 p-0">🕹️<strong><u>{{ item.titulo }}</u></strong></span>
 
     <div>
       <button (click)="toggleSeta(item)" class = "btn btn-outline-primary">
@@ -17,9 +16,10 @@
 
   @if(item.aberto){
   <div class="p-3 border-start border-end border-bottom">
-      <p><strong>Autor:</strong> {{ item.autor }}</p>
+      <p><strong>Título:</strong> {{ item.titulo }}</p>
       <p><strong>Ano:</strong> {{ item.ano }}</p>
       <p><strong>Status:</strong> {{ item.status }}</p>
+       <p><strong>Máximo de jogadores:</strong> {{ item.max_jogadores }}</p>
   </div>
     }
 }
