@@ -7,6 +7,7 @@ interface MeuObjeto {
     status: string,
     aberto: boolean
 }
+
 @Injectable({
   providedIn: 'root',
 })
