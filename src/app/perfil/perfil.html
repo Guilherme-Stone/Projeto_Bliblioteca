@@ -1,27 +1,54 @@
 <div class="container-fluid d-flex justify-content-center align-items-center flex-column">
-    <div class = "justify-content-center align-items-center d-flex flex-column gap-5 mt-5">
-        <h1 class="">Perfil</h1>
-        <img class = "rounded-circle col-6 "  style = "width: 200px; height: 200px;" src = "../../assets/adadad.jpeg">
+
+    <div class="justify-content-center align-items-center d-flex flex-column gap-5 mt-5">
+
+        <h1>Perfil</h1>
+
+    
+        <img class="rounded-circle"
+             style="width: 200px; height: 200px;"
+             src="../../assets/adadad.jpeg">
+
+        
         <h2>{{ nome }}</h2>
-        <div class="d-flex border border-secundary rounded-3 gap-3">
-            <div class="d-flex flex-column border-end align-items-center">
+
+        
+        <div class="d-flex border border-secondary rounded-3 gap-3 p-3">
+
+            <div class="d-flex flex-column border-end pe-3 align-items-center">
                 <h5>Curso</h5>
                 <h5>{{ curso }}</h5>
             </div>
-            <div class="d-flex flex-column align-items-center justify-content-center">
-            <h1>{{ matricula }}</h1>
+
+            <div class="d-flex flex-column align-items-center justify-content-center ps-3">
+                <h1>{{ matricula }}</h1>
             </div>
-        </div>
-    <div>
-        <p>Livros alugados</p> 
-        <div style="border: 100% ;height: 200px; width: 200px; overflow: auto;">
-            @for (item of receivedData; track $index) {
-                <h1>{{ item.nome }}</h1>
-            }
+
         </div>
     </div>
 
-    <div>
-        
+    
+    <div class="d-flex flex-row justify-content-center align-items-start gap-5 mt-5">
+
+        <!-- LIVROS RESERVADOS -->
+        <div class="text-center">
+            <p class="fw-bold">Livros reservados</p>
+            <div style="border: 1px solid #ccc; height: 200px; width: 200px; overflow: auto;"
+                 class="rounded-3 p-2">
+                @for (item of receivedData; track $index) {
+                    <h6>{{ item.nome }}</h6>
+                }
+            </div>
+        </div>
+
+        <!-- JOGOS EMPRESTADOS -->
+        <div class="text-center">
+            <p class="fw-bold">Jogos emprestados</p>
+            <div style="border: 1px solid #ccc; height: 200px; width: 200px; overflow: auto;"
+                 class="rounded-3 p-2">
+                <!-- conteúdo dos jogos futuramente -->
+            </div>
+        </div>
+
     </div>
- </div>     
+</div>

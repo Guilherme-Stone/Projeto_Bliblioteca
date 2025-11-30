@@ -29,7 +29,7 @@ export class ReservaLivro {
     nome: "1984",
     autor: "George Orwell",
     ano: 1949,
-    status: "emprestado",
+    status: "disponível",
     aberto: false
   },
   {
