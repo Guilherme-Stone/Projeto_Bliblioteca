@@ -3,10 +3,16 @@ import { CadastroComponent } from './cadastro/cadastro';
 import { ReservaJogos } from './reserva-jogos/reserva-jogos';
 import { ReservaLivro } from './reserva-livro/reserva-livro';
 import { Perfil } from './perfil/perfil';
+import { Login } from './login/login';
 
 export const routes: Routes = [
     {
         path:"",
+        component: Login
+    },
+
+    {
+        path:"livros",
         component: ReservaLivro
     },
 

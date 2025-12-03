@@ -37,4 +37,11 @@ export class Login{
     console.log(this.email)
   }
 
+  onClickLogin(){
+      
+  }
+  
+  onClickCadstro(){
+
+  }
 }

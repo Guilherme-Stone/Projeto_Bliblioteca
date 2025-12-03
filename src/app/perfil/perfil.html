@@ -43,10 +43,12 @@
 
         <!-- JOGOS EMPRESTADOS -->
         <div class="text-center">
-            <p class="fw-bold">Jogos emprestados</p>
+            <p class="fw-bold">Jogos reservados</p>
             <div style="border: 1px solid #ccc; height: 200px; width: 200px; overflow: auto;"
                  class="rounded-3 p-2">
-                <!-- conteúdo dos jogos futuramente -->
+                 @for(item of receivedJogos;track $index) {
+                    <h6>{{ item.titulo }}</h6>
+                 }
             </div>
         </div>
 

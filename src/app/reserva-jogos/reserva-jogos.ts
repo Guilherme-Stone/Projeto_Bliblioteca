@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ServicesJogos } from '../services/services-jogos';
 
 @Component({
   selector: 'app-reserva-jogos',
@@ -12,12 +13,12 @@ export class ReservaJogos {
       item.aberto = !item.aberto;
     }
 
-    jogos = [{
+    jogoss = [{
       titulo: "Uno",
       ano: 1971,
-      max_jogadores: 10,
+      max_jogadores: "10",
       aberto: false,
-      status: "reservado"
+      status: "disponível"
     }]
 
   
@@ -29,5 +30,11 @@ export class ReservaJogos {
       alert("Jogo reservado com sucesso!")
       console.log("Discente fez uma reserva")
   }
+  }
+  constructor(private jogos : ServicesJogos){}
+
+  ngOnInit(){
+    console.log("Reserva de jogos carregada")
+    this.jogos.setLista(this.jogoss);
   }
 }
