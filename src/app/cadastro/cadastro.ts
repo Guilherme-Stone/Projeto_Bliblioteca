@@ -9,6 +9,8 @@ import {
   ValidationErrors,
   ReactiveFormsModule // <-- 2. Importar ReactiveFormsModule (como um módulo)
 } from '@angular/forms';
+import { IUser } from '../interfaces/IUser';
+import { CadastroService } from '../services/cadastro';
 
 
 @Component({
@@ -25,12 +27,45 @@ export class CadastroComponent implements OnInit {
 
   cadastroForm!: FormGroup; 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private cadastro_service: CadastroService) { }
+
+  listaCurso: string[] = [ 'Angular',
+  'React',
+  'Vue',
+  'Node.js',
+  'Java',
+  'Python',
+  'C#',
+  'Kotlin',
+  'Swift',
+  'Spring Boot',
+  'SQL',
+  'DevOps',
+  'Docker',
+  'Linux',
+  'Machine Learning'
+]
+
+  curso_filtrado = [...this.listaCurso]
+
+  textoBusca: string = ''
+
+  filtra(){
+      const busca = this.textoBusca.toLowerCase()
+
+      this.curso_filtrado = this.listaCurso.filter(filtro => {
+        return filtro.toLowerCase().includes(busca)
+      })
+  }
+  
 
   ngOnInit(): void {
     this.cadastroForm = this.fb.group({
       nome: ['', Validators.required],
+      sobrenome: ['',Validators.required],
+      matricula: ['',[Validators.minLength(7),Validators.maxLength(7),Validators.required]],
       email: ['', [Validators.required, Validators.email]],
+      curso: ['', Validators.required],
       senhas: this.fb.group({ 
         
         senha: ['', [Validators.required, Validators.minLength(6)]],
@@ -40,6 +75,7 @@ export class CadastroComponent implements OnInit {
         validators: this.matchPasswordsValidator 
       }) 
     });
+    
   }
 
 
@@ -67,9 +103,35 @@ export class CadastroComponent implements OnInit {
   onSubmit() {
     if (this.cadastroForm.valid) {
       console.log('✅ Cadastro Enviado com Sucesso! Dados:', this.cadastroForm.value);
+      
+      const formValue = this.cadastroForm.value;
+
+      const usuarioParaCadastro: IUser = {
+        nome: formValue.nome,
+        sobrenome: formValue.sobrenome,
+        matricula: formValue.matricula,
+        curso: formValue.curso,
+        email: formValue.email,
+        senha: formValue.senhas.senha 
+      };
+
+    this.cadastrar(usuarioParaCadastro)
+
     } else {
       console.error('🛑 Formulário Inválido. Verifique os campos.');
       this.cadastroForm.markAllAsTouched();
     }
   }
-}
+
+  cadastrar(usuario: IUser): void{
+    this.cadastro_service.getCadastro(usuario.matricula).subscribe(() => {
+      if( usuario != null){
+        alert("Usuário já cadastrado!")
+        console.log("Cadastro já realizado!")
+        return;
+    }})    
+      this.cadastro_service.cadastra(usuario).subscribe(() => {
+        console.log("Usuário cadastrado com sucesso!")
+      })
+    }
+  }

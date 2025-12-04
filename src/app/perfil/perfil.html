@@ -35,8 +35,8 @@
             <p class="fw-bold">Livros reservados</p>
             <div style="border: 1px solid #ccc; height: 200px; width: 200px; overflow: auto;"
                  class="rounded-3 p-2">
-                @for (item of receivedData; track $index) {
-                    <h6>{{ item.nome }}</h6>
+                @for (item of receivedLivro; track $index) {
+                    <h6>{{ item.titulo }}</h6>
                 }
             </div>
         </div>
@@ -46,9 +46,6 @@
             <p class="fw-bold">Jogos reservados</p>
             <div style="border: 1px solid #ccc; height: 200px; width: 200px; overflow: auto;"
                  class="rounded-3 p-2">
-                 @for(item of receivedJogos;track $index) {
-                    <h6>{{ item.titulo }}</h6>
-                 }
             </div>
         </div>
 

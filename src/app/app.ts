@@ -6,6 +6,7 @@ import { ReservaLivro } from "./reserva-livro/reserva-livro";
 import { ReservaJogos } from "./reserva-jogos/reserva-jogos";
 import { Navbar } from "./navbar/navbar";
 import { Perfil } from "./perfil/perfil";
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',

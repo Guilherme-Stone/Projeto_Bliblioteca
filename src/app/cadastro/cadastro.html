@@ -1,10 +1,11 @@
+@if(cadastroForm.controls){
 <div class="container mt-5">
     
     <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()" class="card p-4 shadow">
         <h2 class="card-title text-center mb-4">Crie sua Conta</h2>
         
         <div class="form-group mb-3">
-            <label for="nome">Nome Completo</label>
+            <label for="nome">Nome</label>
             <input 
                 id="nome" 
                 type="text" 
@@ -12,11 +13,81 @@
                 class="form-control"
                 [class.is-invalid]="f['nome'].invalid && f['nome'].touched"
             >
-            <div *ngIf="f['nome'].invalid && f['nome'].touched" class="invalid-feedback">
-                <p *ngIf="f['nome'].hasError('required')">O nome é obrigatório.</p>
+
+            @if (f['nome'].invalid && f['nome'].touched) {
+             <div class="invalid-feedback">
+                @if (f['nome'].hasError('required')) {
+                <p>O nome é obrigatório.</p>
+                }
             </div>
+        }
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="nome">Sobrenome</label>
+            <input 
+                id="sobrenome" 
+                type="text" 
+                formControlName="sobrenome"
+                class="form-control"
+                [class.is-invalid]="f['sobrenome'].invalid && f['sobrenome'].touched">
+
+            @if (f['sobrenome'].invalid && f['sobrenome'].touched) {
+                <div class="invalid-feedback">
+                    @if (f['sobrenome'].hasError('required')) {
+                        <p>O nome é obrigatório.</p>
+                        }
+                    </div>
+        }
         </div>
         
+
+        <div class="form-group mb-3">
+            <label for="matricula">Matrícula</label>
+                <input
+                    id="matricula"
+                    type = "text"
+                    formControlName = "matricula"
+                    class = "form-control"
+                    [class.is-invalid]="f['matricula'].invalid && f['matricula'].touched">
+
+                    @if(f['matricula'].invalid && f['matricula'].touched){
+                        <div class="invalid-feedback">
+                            @if(f['matricula'].hasError('required')){
+                                <p>A matrícula é obrigatória</p>
+                            }
+
+                            @if(f['matricula'].hasError('minLength') && f['matricula'].hasError('maxLength')){
+                                <p>Matrícula possui menos que 7 caracteres</p>
+                            }
+                        </div>
+                    }
+        </div>
+
+
+        <div class = "form-group mb-3">
+            <label for = "curso">Curso</label>
+            <input
+                id = "curso"
+                type = "search"
+                formControlName = "curso"
+                class = "form-control"
+                placeholder="Digite seu curso"
+                [(ngModel)]="textoBusca"
+                (input)="filtra()"
+                [class.is-invalid]="f['curso'].invalid && f['curso'].touched"
+            >
+            
+            @if(f['curso'].invalid && f['curso'].touched){
+                <div class = "invalid-feedback">
+                    @if(f['curso'].hasError('required')){
+                        <p>Campo não escolhido</p>
+                    }
+                </div>
+            }
+        </div>
+
+
         <div class="form-group mb-3">
             <label for="email">E-mail</label>
             <input 
@@ -72,3 +143,4 @@
 
     </form>
 </div>
+}

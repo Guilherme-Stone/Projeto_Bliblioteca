@@ -22,8 +22,8 @@ export class LivroService {
       return this.httpclient.get<ILivro>(`${environment.API_PATH}livro/${id}`);
     }
 
-    setById(id: number){
-      return this.httpclient.post<ILivro>(`${environment.API_PATH}livro/${id}`,this.getById(id))
+    setById(id: number, livro:ILivro){
+      return this.httpclient.put<ILivro>(`${environment.API_PATH}livro/${id}`,livro)
     }
     
 }

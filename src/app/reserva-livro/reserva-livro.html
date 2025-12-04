@@ -10,13 +10,13 @@
 
       @if( item.status === "DISPONIVEL"){
         <button class="btn btn-primary btn-acao-livro" 
-                (click)="reservar(item.id)">
+                (click)="reservar(item.id)" style="width: 100px; height: 30px; padding: 0; margin-right: 10px; margin-left: 20px;">
           Reservar
         </button>
       }
-      
       @if(item.status === "INDISPONIVEL"){
-        <button class="btn btn-secondary btn-acao-livro" disabled (click)="cancelarReserva(item.id)">
+        <button class="btn btn-secondary btn-acao-livro" [disabled] = "true" (click)="cancelarReserva(item.id)"
+          style="width: 100px; height: 30px; padding: 0; margin-right: 10px; margin-left: 20px;">
           Cancelar Reserva
         </button>
       }

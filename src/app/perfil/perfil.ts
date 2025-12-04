@@ -1,25 +1,10 @@
 import { Component, OnInit, OnDestroy} from '@angular/core'; 
 import { Navbar } from "../navbar/navbar";
-import { Dados } from '../services/TranferenciaLivroService';
+import { TransferenciaLivroService } from '../services/TranferenciaLivroService';
 import { Observable, Subscription } from 'rxjs';
-import { ServicesJogos } from '../services/services-jogos';
-
-interface MeuObjeto {
-    nome: string
-    autor: string,
-    ano: number,
-    status: string,
-    aberto: boolean
-}
-
-interface MeuJogo{
-      titulo: string
-      ano: number,
-      max_jogadores: string,
-      aberto: boolean,
-      status: string
-}
-
+import { TranferenciaJogoService } from '../services/TranferenciaJogoService';
+import { ILivro } from '../interfaces/ILivro';
+import { IJogo } from '../interfaces/IJogo';
 
 @Component({
   selector: 'app-perfil',
@@ -33,28 +18,34 @@ export class Perfil implements OnInit, OnDestroy {
     curso: string = "Engenharia de Software";
     matricula: string = "2390367";
 
-    receivedData: MeuObjeto[] = [];
-    receivedJogos: MeuJogo[] = [];
+    receivedLivro: ILivro[] = [];
+    receivedJogo: IJogo[] = []
+    //receivedJogos: MeuJogo[] = [];
     dataSubscription: Subscription | undefined; 
 
-    constructor(private dados: Dados, private jogos: ServicesJogos){}
+    constructor(private transferencia_livro_service: TransferenciaLivroService, private transferencia_jogo_service: TranferenciaJogoService){}
     
-
-    ngOnInit(){
-      this.dataSubscription = this.dados.currentData.subscribe(data => {
-        this.receivedData = data;
-        console.log('Dados recebidos no Componente Perfil:', this.receivedData);
-      });
-
-      this.dataSubscription =  this.jogos.getLista().subscribe(data => {
-        this.receivedJogos = data;
-        console.log("Dados do jogos recebidos no Componente Perfil:", this.receivedJogos);
-      })
+    ngOnInit(): void {
+      this.livros_transferidos();
+      this.jogos_transferidos();
     }
 
     ngOnDestroy(){
       if(this.dataSubscription){ 
         this.dataSubscription.unsubscribe();
       }
-  }
+    }
+
+    livros_transferidos(){
+      this.dataSubscription = this.transferencia_livro_service.currentData.subscribe(livros =>{
+        this.receivedLivro = livros
+      })
+    }
+
+     jogos_transferidos(){
+      this.dataSubscription = this.transferencia_jogo_service.currentData.subscribe(livros =>{
+        this.receivedJogo = livros
+      })
+    }
+  
 }
