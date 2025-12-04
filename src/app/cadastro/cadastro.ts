@@ -123,15 +123,30 @@ export class CadastroComponent implements OnInit {
     }
   }
 
-  cadastrar(usuario: IUser): void{
-    this.cadastro_service.getCadastro(usuario.matricula).subscribe(() => {
-      if( usuario != null){
-        alert("Usuário já cadastrado!")
-        console.log("Cadastro já realizado!")
+  
+  cadastrar(usuario: IUser): void {
+  this.cadastro_service.getCadastro(usuario.matricula).subscribe({
+    next: (matricula) => {
+      if (matricula === usuario.matricula) {
+        alert("Usuário já cadastrado!");
+        console.log("Usuário já cadastrado");
         return;
-    }})    
+      }
+
       this.cadastro_service.cadastra(usuario).subscribe(() => {
-        console.log("Usuário cadastrado com sucesso!")
-      })
+        console.log("Usuário cadastrado com sucesso!");
+      });
+    },
+    error: (err) => {
+      if (err.status === 404) {
+        this.cadastro_service.cadastra(usuario).subscribe(() => {
+          console.log("Usuário cadastrado com sucesso!");
+        });
+      } else {
+        console.error("Erro inesperado:", err);
+      }
     }
+  });
+}
+
   }
