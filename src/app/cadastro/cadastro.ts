@@ -102,7 +102,6 @@ export class CadastroComponent implements OnInit {
   
   onSubmit() {
     if (this.cadastroForm.valid) {
-      console.log('✅ Cadastro Enviado com Sucesso! Dados:', this.cadastroForm.value);
       
       const formValue = this.cadastroForm.value;
 
@@ -124,29 +123,35 @@ export class CadastroComponent implements OnInit {
   }
 
   
-  cadastrar(usuario: IUser): void {
+cadastrar(usuario: IUser): void {
   this.cadastro_service.getCadastro(usuario.matricula).subscribe({
-    next: (matricula) => {
-      if (matricula === usuario.matricula) {
-        alert("Usuário já cadastrado!");
-        console.log("Usuário já cadastrado");
-        return;
-      }
+    next: (res) => {
 
-      this.cadastro_service.cadastra(usuario).subscribe(() => {
-        console.log("Usuário cadastrado com sucesso!");
-      });
-    },
-    error: (err) => {
-      if (err.status === 404) {
+      console.log('RESPOSTA DO BACKEND ->', res);
+
+      
+      if (res === null) {
         this.cadastro_service.cadastra(usuario).subscribe(() => {
           console.log("Usuário cadastrado com sucesso!");
         });
-      } else {
-        console.error("Erro inesperado:", err);
+        return;
       }
+
+      window.alert("Usuário já cadastrado!");
+      console.log("Usuário já cadastrado!");
+    },
+
+    error: (err) => {
+      if(err === 404){
+        this.cadastro_service.cadastra(usuario).subscribe(() =>{
+          console.log("Usuário cadastrado")
+        })
+      }else{
+      console.error("Erro inesperado:", err);
     }
+  }
   });
 }
 
-  }
+
+}
